@@ -58,7 +58,7 @@ class Core
         $_SESSION['username'] = $row2['username'];
         $_SESSION['password'] = $row2['password'];
         $_SESSION['role'] = $row2['role'];
-        header('location:../admin/daftar_siswa.php');
+        header('location:../admin/daftar_siswa_aktif.php');
       }
     } else {
       echo "<script type='text/javascript'>window.location='../login.php';alert('Username atau password Salah !!!')</script>";
@@ -168,18 +168,56 @@ class Core
       public function tampilAdminDaftarSiswa()
       {
         $query = mysqli_query($this->koneksi, "SELECT * FROM siswa ORDER BY nama_lengkap");
-
+        $no = 1;
         while ($result = mysqli_fetch_array($query)) {
-          $this->id_siswa = $result['id_siswa'];
+          $this->id_siswa = $no;
+          $this->id_siswa1 = $result['id_siswa'];
+          $this->no_siswa = $result['nis'];
           $this->nama_lengkap = $result['nama_lengkap'];
-
+          $this->sekolah = $result['sekolah'];
+          $this->jurusan = $result['jurusan'];
+          $this->status_siswa = $result['status_siswa'];
+          $no++;
           echo "<tr class='table-primary'>";
           ?>
       <td class="text-center"><?= $this->id_siswa; ?></td>
-      <td class="text-left"><a href="siswa.php?id_siswa=<?= $this->id_siswa; ?>"" style=" text-decoration: none; color:black"><b><?= $this->nama_lengkap; ?></b></a></td>
+      <td class="text-center"><?= $this->no_siswa; ?></td>
+      <td class="text-left"><a class="btn btn-success" href="siswa.php?id_siswa=<?= $this->id_siswa1; ?>""><b><?= $this->nama_lengkap; ?></b></a></td>
+      <td class=" text-center"><?= $this->sekolah; ?></td>
+      <td class="text-center"><?= $this->jurusan; ?></td>
+      <td class="justify-content-center">
+        <a class="btn btn-success" href="daftar_jurnal.php?id_siswa=<?= $this->id_siswa1; ?>">Jurnal </a>
+      </td>
+      <td class="text-center"><?= $this->status_siswa; ?></td>
+      </tr>
+    <?php
+        }
+      }
+
+      public function tampilAdminDaftarSiswaAktif()
+      {
+        $query = mysqli_query($this->koneksi, "SELECT * FROM siswa WHERE status_siswa = 'Aktif' ORDER BY nama_lengkap");
+        $no = 1;
+        while ($result = mysqli_fetch_array($query)) {
+          $this->id_siswa = $no;
+          $this->id_siswa1 = $result['id_siswa'];
+          $this->no_siswa = $result['nis'];
+          $this->nama_lengkap = $result['nama_lengkap'];
+          $this->sekolah = $result['sekolah'];
+          $this->jurusan = $result['jurusan'];
+          $this->status_siswa = $result['status_siswa'];
+          $no++;
+          echo "<tr class='table-primary'>";
+          ?>
+      <td class="text-center"><?= $this->id_siswa; ?></td>
+      <td class="text-center"><?= $this->no_siswa; ?></td>
+      <td class="text-left"><a class="btn btn-success" href="siswa.php?id_siswa=<?= $this->id_siswa1; ?>""><b><?= $this->nama_lengkap; ?></b></a></td>
+      <td class=" text-center"><?= $this->sekolah; ?></td>
+      <td class="text-center"><?= $this->jurusan; ?></td>
       <td class="justify-content-center">
         <a class="btn btn-success" href="daftar_jurnal.php?id_siswa=<?= $this->id_siswa; ?>">Jurnal </a>
       </td>
+      <td class="text-center"><?= $this->status_siswa; ?></td>
       </tr>
     <?php
         }
@@ -221,7 +259,7 @@ class Core
         </div>
       </div>
       <div class="d-flex justify-content-center" style="margin-top:30px;">
-        <a class="btn btn-success" href="../admin/daftar_siswa.php" style="margin-right:20px;">Kembali</a>
+        <a class="btn btn-success" href="../siswa/tabel_siswa.php" style="margin-right:20px;">Kembali</a>
         <a class="btn btn-success" href="edit_akun_siswa.php?id_siswa=<?= $id_siswa; ?>">Edit</a>
       </div>
       </div>
@@ -229,11 +267,54 @@ class Core
 
         }
       }
+      public function tampilDataSiswa1()
+      {
+        $id_siswa = $_GET['id_siswa'];
+        $query = mysqli_query($this->koneksi, "SELECT * FROM siswa WHERE id_siswa = '$id_siswa' ");
+        while ($result = mysqli_fetch_array($query)) {
+          $this->nama_lengkap = $result['nama_lengkap'];
+          $this->no_hp = $result['no_hp'];
+          $this->tempat_lahir = $result['tempat_lahir'];
+          $this->tanggal_lahir = $result['tanggal_lahir'];
+          $this->jenis_kelamin = $result['jenis_kelamin'];
+          $this->Alamat = $result['Alamat'];
+          $this->nama_ortu = $result['nama_ortu'];
+          $this->nohp_ortu = $result['nohp_ortu'];
+          $this->sekolah = $result['sekolah'];
+          $this->nis = $result['nis'];
+          $this->jurusan = $result['jurusan'];
+          $this->username = $result['username'];
+          $this->password = $result['password'];
+          ?>
+      <div class="row">
+        <div class="col-5">
+          <div class="list-group" id="list-tab" role="tablist">
+            <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Data Diri</a>
+            <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Data Orang Tua</a>
+            <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Data Sekolah</a>
+          </div>
+        </div>
+        <div class="col-7">
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list"><b><?= $this->nama_lengkap ?></b>, lahir di <b><?= $this->tempat_lahir ?></b> pada tanggal <b><?= $this->tanggal_lahir ?></b> dengan jenis kelamin <b><?= $this->jenis_kelamin ?></b>. Tinggal di <b><?= $this->Alamat ?></b>. No. HP <b><?= $this->no_hp ?>.</b></div>
+            <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">Nama orang tua <b><?= $this->nama_lengkap ?></b> adalah <b><?= $this->nama_ortu ?></b>. No HP Bapak <b><?= $this->nama_ortu ?></b> : <b><?= $this->nohp_ortu ?>.</b></div>
+            <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list"><b><?= $this->nama_lengkap ?></b> berasal dari Sekolah/Universitas <b><?= $this->sekolah ?></b> dengan jurusan <b><?= $this->jurusan ?></b> memiliki nomor induk mahasiswa/siswa : <b><?= $this->nis ?></b>. </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center" style="margin-top:30px;">
+        <a class="btn btn-success" href="../admin/daftar_siswa.php" style="margin-right:20px;">Kembali</a>
+        <a class="btn btn-success" href="../admin/edit_akun_siswa.php?id_siswa=<?= $id_siswa; ?>">Edit</a>
+      </div>
+      </div>
+    <?php
 
+        }
+      }
       public function formDaftar()
       {
         ?>
-    <form action="proses/daftar.php" method="POST">
+    <form action="../proses/daftar.php" method="POST">
       <div class="row">
         <div class="col-md-7">
           <div class="form-group">
@@ -329,7 +410,6 @@ class Core
       </div>
       <div class="d-flex justify-content-center">
         <button type="submit" name="submit" class="btn btn-primary pull-right" style="margin-right:3%">Tambahkan</button>
-        <a href="login.php" class="btn btn-primary pull-right">Login</a>
       </div>
       <div class="clearfix"></div>
     </form>
@@ -393,11 +473,34 @@ class Core
         $this->username = $username;
         $this->password = $password;
 
-        $sql = mysqli_query($this->koneksi, "INSERT INTO siswa (nama_lengkap,no_hp,tempat_lahir,tanggal_lahir,jenis_kelamin,Alamat,nama_ortu,nohp_ortu,sekolah,nis,jurusan,username,password) VALUES ('$this->nama_lengkap','$this->no_hp','$this->tempat_lahir','$this->tanggal_lahir','$this->jenis_kelamin','$this->Alamat','$this->nama_ortu','$this->no_ortu','$this->sekolah','$this->nis','$this->jurusan','$this->username','$this->password')") or die(mysqli_error($this->koneksi));
+        $sql = mysqli_query($this->koneksi, "INSERT INTO siswa (nama_lengkap,no_hp,tempat_lahir,tanggal_lahir,jenis_kelamin,Alamat,nama_ortu,nohp_ortu,sekolah,nis,jurusan,username,password, status_siswa) VALUES ('$this->nama_lengkap','$this->no_hp','$this->tempat_lahir','$this->tanggal_lahir','$this->jenis_kelamin','$this->Alamat','$this->nama_ortu','$this->no_ortu','$this->sekolah','$this->nis','$this->jurusan','$this->username','$this->password', 'Tidak Aktif')") or die(mysqli_error($this->koneksi));
         echo "<script>window.location='../admin/daftar_siswa.php';alert('Data Siswa Berhasil Disimpan')</script>";
       }
 
-      public function editAkunSiswa($id_siswa, $nama_lengkap, $no_hp, $tempat_lahir, $tanggal_lahir, $jenis_kelamin, $Alamat, $nama_ortu, $nohp_ortu, $sekolah, $nis, $jurusan, $username, $password)
+      public function editAkunSiswa($id_siswa, $nama_lengkap, $no_hp, $tempat_lahir, $tanggal_lahir, $jenis_kelamin, $Alamat, $nama_ortu, $nohp_ortu, $sekolah, $nis, $jurusan, $username, $password, $status_siswa)
+      {
+        $this->id_siswa = $id_siswa;
+        $this->nama_lengkap = $nama_lengkap;
+        $this->no_hp = $no_hp;
+        $this->tempat_lahir = $tempat_lahir;
+        $this->tanggal_lahir = $tanggal_lahir;
+        $this->jenis_kelamin = $jenis_kelamin;
+        $this->Alamat = $Alamat;
+        $this->nama_ortu = $nama_ortu;
+        $this->no_ortu = $nohp_ortu;
+        $this->sekolah = $sekolah;
+        $this->nis = $nis;
+        $this->jurusan = $jurusan;
+        $this->username = $username;
+        $this->password = $password;
+        $this->status_siswa = $status_siswa;
+
+        $sql = " UPDATE siswa SET nama_lengkap = '$this->nama_lengkap', no_hp = '$this->no_hp', tempat_lahir = '$this->tempat_lahir', tanggal_lahir = '$this->tanggal_lahir', jenis_kelamin = '$this->jenis_kelamin', Alamat = '$this->Alamat',nama_ortu = '$this->nama_ortu', nohp_ortu = '$this->no_ortu', sekolah = '$this->sekolah', nis = '$this->nis', jurusan = '$this->jurusan', username = '$this->username', password = '$this->password', status_siswa = '$this->status_siswa' WHERE id_siswa = '$this->id_siswa'";
+        mysqli_query($this->koneksi, $sql) or die(mysqli_error($this->koneksi));
+        header("Location: ../admin/daftar_siswa.php");
+      }
+
+      public function editAkunSiswa1($id_siswa, $nama_lengkap, $no_hp, $tempat_lahir, $tanggal_lahir, $jenis_kelamin, $Alamat, $nama_ortu, $nohp_ortu, $sekolah, $nis, $jurusan, $username, $password)
       {
         $this->id_siswa = $id_siswa;
         $this->nama_lengkap = $nama_lengkap;
@@ -414,13 +517,12 @@ class Core
         $this->username = $username;
         $this->password = $password;
 
-        $sql = " UPDATE siswa SET nama_lengkap = '$this->nama_lengkap', no_hp = '$this->no_hp', tempat_lahir = '$this->tempat_lahir', tanggal_lahir = '$this->tanggal_lahir', jenis_kelamin = '$this->jenis_kelamin', Alamat = '$this->Alamat',nama_ortu = '$this->nama_ortu', nohp_ortu = '$this->nohp_ortu', sekolah = '$this->sekolah', nis = '$this->nis', jurusan = '$this->jurusan', username = '$this->username', password = '$this->password' WHERE id_siswa = '$this->id_siswa'";
+        $sql = " UPDATE siswa SET nama_lengkap = '$this->nama_lengkap', no_hp = '$this->no_hp', tempat_lahir = '$this->tempat_lahir', tanggal_lahir = '$this->tanggal_lahir', jenis_kelamin = '$this->jenis_kelamin', Alamat = '$this->Alamat',nama_ortu = '$this->nama_ortu', nohp_ortu = '$this->no_ortu', sekolah = '$this->sekolah', nis = '$this->nis', jurusan = '$this->jurusan', username = '$this->username', password = '$this->password' WHERE id_siswa = '$this->id_siswa'";
         mysqli_query($this->koneksi, $sql) or die(mysqli_error($this->koneksi));
-        header("Location: ../admin/daftar_siswa.php");
+        header("Location: ../siswa/siswa.php?id_siswa=$this->id_siswa ");
       }
       public function tampilDAftarSiswa()
       {
-        session_start();
         $id_siswa = $_SESSION['id_siswa'];
         $no = 1;
         $query = mysqli_query($this->koneksi, "SELECT * FROM tabel_isi_jurnal WHERE id_siswa = $id_siswa");
@@ -445,8 +547,12 @@ class Core
         <a class="btn btn-success" href='<?php echo "edit_jurnal.php?id_j=$this->id_j"; ?>' style="margin-right: 2%">Edit</a>
         <a class="btn btn-warning" href='<?php echo "../proses/proses_hapus_jurnal.php?id_j=$this->id_j"; ?>' style="margin-right: 2%">Hapus</a>
       </td>
-
-      <td><a href="#" style="margin-right:2%"><?= $this->status ?></a></td>
+      <?php
+            if ($this->status == 'Disetujui') {
+              ?> <td class="text-center"><a class="btn btn-primary" href="#">Print</a></td>
+      <?php  } else {
+              ?> <td><a href="#" class="btn btn-danger disabled"><?= $this->status ?></a></td>
+      <?php } ?>
       </tr>
     <?php
         }
@@ -454,7 +560,7 @@ class Core
       public function hapusJurnal($id_j)
       {
         $this->id_j = $id_j;
-        mysqli_query($this->koneksi, "DELETE FROM tabel_isi_jurnal WHERE id_j = '$this->id_j'");
+        mysqli_query($this->koneksi, "DELETE FROM tabel_isi_jurnal WHERE id = '$this->id_j'");
         header("Location: ../siswa/tabel_siswa.php");
       }
 

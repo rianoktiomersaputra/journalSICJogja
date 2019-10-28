@@ -28,13 +28,16 @@
     <body style="background-image: url('../gambar/background.jpg'); background-size:cover; ">
         <div class=" container">
             <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-                <a class="navbar-brand" href="#">SIC Admin</a>
+                <a class="navbar-brand" href="daftar_siswa_aktif.php">SIC Admin</a>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Daftar User</a>
+                        <a class="nav-link" href="daftar_seluruhjurnal.php">Daftar Seluruh Jurnal</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="daftar_seluruhjurnal.php">Daftar Jurnal</a>
+                        <a class="nav-link" href="registrasi.php">Registrasi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="daftar_siswa.php">Daftar Seluruh Siswa</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
@@ -45,19 +48,23 @@
             </nav>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Data User</li>
+                    <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Data Seluruh Siswa</li>
                 </ol>
             </nav>
             <div class="jumbotron jumbotron-fluid" style="opacity:0.8">
                 <div class="container">
-                    <h1>Daftar User</h1>
+                    <h1>Daftar Seluruh Siswa</h1>
                     <table class="table table-bordered" id="myTable" class="display">
                         <thead>
                             <tr class="table-success">
-                                <th class="text-center">ID Siswa</th>
+                                <th class="text-center">No</th>
+                                <th class="text-center">Nomor Identitas Siswa</th>
                                 <th class="text-center">Nama Siswa</th>
+                                <th class="text-center" s>Sekolah/Universitas</th>
+                                <th class="text-center" s>Jurusan</th>
                                 <th class="text-center" s>Aksi</th>
+                                <th class="text-center" s>Status</th>
                             </tr>
                         </thead>
                         <tbody>

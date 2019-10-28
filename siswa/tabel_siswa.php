@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+$id_siswa = $_SESSION['id_siswa'];
 require("../core/core.php");
 $core = new Core();
 
@@ -33,10 +35,13 @@ $core = new Core();
 <body style="background-image: url('../gambar/background.jpg'); background-size:cover; ">
     <div class=" container">
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-            <a class="navbar-brand" href="#">SIC User</a>
+            <a class="navbar-brand" href="tabel_siswa.php">SIC Siswa</a>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="daftar_siswa.php">Daftar Jurnal</a>
+                    <a class="nav-link active" href="tabel_siswa.php">Daftar Jurnal</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="siswa.php?id_siswa=<?= $id_siswa ?>">Akun</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -47,8 +52,8 @@ $core = new Core();
         </nav>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Data Jurnal User</li>
+                <li class="breadcrumb-item"><a href="tabel_siswa.php">Siswa</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Data Jurnal Siswa</li>
             </ol>
         </nav>
         <div class="jumbotron jumbotron-fluid" style="opacity:0.8">
@@ -58,11 +63,11 @@ $core = new Core();
                 <table class="table table-bordered" class="display">
                     <thead>
                         <tr class="table-success text-center">
-                            <th>Id</th>
+                            <th>No</th>
+                            <th>Uraian</th>
                             <th>Tanggal</th>
                             <th>Jam Mulai</th>
                             <th>Jam selesai</th>
-                            <th>Uraian</th>
                             <th>Gambar</th>
                             <th>Status</th>
                             <th>Option</th>

@@ -2,6 +2,8 @@
 session_start();
 require("../core/core.php");
 $core = new Core();
+$id_siswa = $_SESSION['id_siswa'];
+date_default_timezone_set("Asia/Jakarta");
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +30,9 @@ $core = new Core();
                     <li class="nav-item">
                         <a class="nav-link active" href="daftar_siswa.php">Daftar Jurnal</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="siswa.php?id_siswa=<?= $id_siswa ?>">Akun</a>
+                    </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
@@ -37,82 +42,60 @@ $core = new Core();
             </nav>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="tabel_siswa.php">Data Jurnal User</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Input Data Jurnal User</li>
+                    <li class="breadcrumb-item"><a href="tabel_siswa.php">Siswa</a></li>
+                    <li class="breadcrumb-item"><a href="tabel_siswa.php">Data Jurnal Siswa</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Input Data Jurnal Siswa</li>
                 </ol>
             </nav>
 
             <div class="jumbotron jumbotron-fluid" style="opacity:0.8">
                 <div class="container">
-                    <h1>Daftar Jurnal</h1>
-
-                </div>
-                <div class="navbar">
-                    <div class="navbar-inner">
-                        <div class="container">
-                            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </a>
-                            <a class="brand" href="#">SIC Yogyakarta</a>
-                            <div class="nav-collapse">
-                                <ul class="nav">
-                                    <li class="active"><a href="form_isi_jurnal.php">Isi Jurnal</a></li>
-                                    <?php
-                                    $a = $_SESSION['username'];
-                                    $id_siswa = mysqli_query($core->koneksi, "SELECT id_siswa FROM siswa WHERE username = '$a' ");
-                                    $hasil = mysqli_fetch_array($id_siswa);
-                                    $hasilid = $hasil['id_siswa'];
-                                    ?>
-                                    <li><a href="tabel_siswa.php?id=<?= $hasilid ?>">Tabel Jurnal</a></li>
-                                </ul>
-                                <ul class="nav pull-right">
-                                    <li class="divider-vertical"></li>
-                                    <li><a href="../proses/proses_logout.php">Log Out</a></li>
-                                </ul>
-                            </div><!-- /.nav-collapse -->
-                        </div>
-                    </div><!-- /navbar-inner -->
+                    <h1>Input Data Jurnal</h1>
                 </div>
                 <div class="container">
-                    <div class="span4"></div>
-                    <div class="span3">
-                        <h2>Isi Jurnal</h2>
-                        <form action="../proses/proses_isi_jurnal.php" method="POST" enctype="multipart/form-data">
-
-                            <input type="text" name="id_siswa" value="<?php echo $hasil['id_siswa']; ?>" readonly>
-                            <input type="hidden" id="username" name="username" value="<?php echo $user; ?>">
-                            <label>Tanggal</label>
-                            <input type="date" name="tanggal" value="<?php echo date('Y-m-d'); ?>" class="span3" disabled>
-                            <label>Jam Mulai</label>
-                            <input type="time" name="jam_mulai" value="00:00" class="span3">
-                            <label>Jam Selesai</label>
-                            <input type="time" name="jam_selesai" value="00:00" class="span3">
-                            <label>Uraian</label>
-                            <textarea cols="100" rows="5" name="uraian" class="span3"></textarea>
-                            <label>Upload Gambar</label>
-                            <input type="file" name="gambar" class="span3">
-                            <button type="submit" name="reset" value="batalkan" class="btn btn-primary pull-right">Reset</button>
+                    <form action="../proses/proses_isi_jurnal.php" method="POST" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="tanggal">Tanggal</label>
+                                    <input type="text" name="id_siswa" value="<?= $id_siswa ?>" hidden>
+                                    <input type="date" class="form-control" name="tanggal" id="tanggal" value="<?php echo date("Y-m-d"); ?>" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="jam_mulai">Jam Mulai</label>
+                                    <input type="time" class="form-control" name="jam_mulai" id="jam_mulai">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="jam_selesai">Jam Selesai</label>
+                                    <input type="time" class="form-control" name="jam_selesai" id="jam_selesai">
+                                </div>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-4">
+                                <label for="uraian">Uraian</label>
+                                <textarea class="form-control" rows="4" id="uraian" name="uraian"></textarea>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="gambar">Upload Gambar</label>
+                                <input type="file" name="gambar" class="form-control" id="gambar">
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center" style="margin-top:20px">
+                            <button type="submit" name="reset" value="batalkan" class="btn btn-primary pull-right" style="margin-right:3%">Reset</button>
                             <button type="submit" name="submit" value="submit" class="btn btn-primary pull-right" style="margin-right:3%">Tambahkan</button>
-
-                            <div class="clearfix"></div>
-                        </form>
-                    </div>
-                </div>
-                <div class="container">
-                    <hr>
-                    <div class="row-fluid">
-                        <div class="span12">
-                            <div class="span8">
-                            </div>
-                            <div class="span4">
-                                <p class="muted pull-right">SIC YOGYAKARTA</p>
-                            </div>
                         </div>
-                    </div>
+
+                        <div class="clearfix"></div>
+                    </form>
                 </div>
+            </div>
 
-
-                <body>
+            <body>

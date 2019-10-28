@@ -31,10 +31,13 @@ $siswa = mysqli_fetch_array($sql, MYSQLI_ASSOC);
             <a class="navbar-brand" href="#">SIC Admin</a>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="daftar_siswa.php">Daftar User</a>
+                    <a class="nav-link" href="daftar_seluruhjurnal.php">Daftar Seluruh Jurnal</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="daftar_seluruhjurnal.php">Daftar Jurnal</a>
+                    <a class="nav-link" href="registrasi.php">Registrasi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="daftar_siswa.php">Daftar Seluruh Siswa</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -45,9 +48,10 @@ $siswa = mysqli_fetch_array($sql, MYSQLI_ASSOC);
         </nav>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="daftar_siswa.php">Data User</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Data Diri User</li>
+                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                <li class="breadcrumb-item"><a href="daftar_siswa.php">Data Seluruh Siswa</a></li>
+                <li class="breadcrumb-item"><a href="siswa.php?id_siswa=<?= $id_siswa; ?>">Data Siswa</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit Data Siswa</li>
             </ol>
         </nav>
 
@@ -137,7 +141,7 @@ $siswa = mysqli_fetch_array($sql, MYSQLI_ASSOC);
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-7">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="username">Username</label>
                                     <input type="text" class="form-control" id="username" name="username" value="<?= $siswa['username'] ?>">
@@ -149,13 +153,21 @@ $siswa = mysqli_fetch_array($sql, MYSQLI_ASSOC);
                                     <input type="text" class="form-control" id="password" name="password" value="<?= $siswa['password'] ?>">
                                 </div>
                             </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="ss">Status Siswa</label>
+                                    <select class="form-control" id="ss" name="status_siswa">
+                                        <option value="Aktif">Aktif</option>
+                                        <option value="Tidak Aktif">Tidak Aktif</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="d-flex justify-content-center">
                             <button type="submit" name="reset" class="btn btn-primary pull-right" style="margin-right:3%">Reset</button>
                             <button type="submit" name="submit" class="btn btn-primary pull-right" style="margin-right:3%">Simpan
                             </button>
                         </div>
-                        <div class="clearfix"></div>
                     </form>
                 </div>
             </div>

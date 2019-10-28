@@ -33,7 +33,6 @@ session_start();
                     </div>
                     <div class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-primary" style="margin-right:20px">Submit</button>
-                        <a href="registrasi.php" class="btn btn-primary pull-right" style="margin-right: 2%">Sign Up</a>
                     </div>
                 </div>
                 <div class="col-sm-2">

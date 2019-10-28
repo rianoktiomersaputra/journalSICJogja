@@ -34,13 +34,16 @@ $core = new Core();
 <body style="background-image: url('../gambar/background.jpg'); background-size:cover; ">
     <div class=" container">
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-            <a class="navbar-brand" href="#">SIC Admin</a>
+            <a class="navbar-brand" href="daftar_siswa_aktif.php">SIC Admin</a>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link " href="daftar_siswa.php">Daftar User</a>
+                    <a class="nav-link active" href="daftar_seluruhjurnal.php">Daftar Seluruh Jurnal</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="daftar_seluruhjurnal.php">Daftar Jurnal</a>
+                    <a class="nav-link" href="registrasi.php">Registrasi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="daftar_siswa.php">Daftar Seluruh Siswa</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -51,8 +54,8 @@ $core = new Core();
         </nav>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Data Jurnal</li>
+                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Data Seluruh Jurnal</li>
             </ol>
         </nav>
         <div class="jumbotron jumbotron-fluid" style="opacity:0.8">

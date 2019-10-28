@@ -42,10 +42,13 @@ $nama = $data['nama_lengkap'];
             <a class="navbar-brand" href="#">SIC Admin</a>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="daftar_siswa.php">Daftar User</a>
+                    <a class="nav-link" href="daftar_seluruhjurnal.php">Daftar Seluruh Jurnal</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="daftar_seluruhjurnal.php">Daftar Jurnal</a>
+                    <a class="nav-link" href="registrasi.php">Registrasi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="daftar_siswa.php">Daftar Seluruh Siswa</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -56,9 +59,9 @@ $nama = $data['nama_lengkap'];
         </nav>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="daftar_siswa.php">Data User</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Data Jurnal User</li>
+                <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                <li class="breadcrumb-item"><a href="daftar_siswa.php">Data Seluruh Siswa</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Data Jurnal Siswa</li>
             </ol>
         </nav>
         <div class="jumbotron jumbotron-fluid" style="opacity:0.8">
